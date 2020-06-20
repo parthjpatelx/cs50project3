@@ -1,0 +1,12 @@
+{% extends "orders/base.html" %}
+
+{% block body %}
+<form action="{% url 'register' %}" method="post">
+    {% csrf_token %}
+    <input name="username" type="text" placeholder="username"/>
+    <input type="email" id="email" name="email" placeholder="email">
+    <input name="password" type="password" placeholder="password"/>
+    <input name="password_again" type="password" placeholder="password (again)"/>
+    <input type="submit" value="Register"/>
+</form>
+{% endblock %}

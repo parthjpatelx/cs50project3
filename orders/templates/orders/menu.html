@@ -1,0 +1,25 @@
+{% extends "orders/base.html" %}
+{% load static %}
+
+{% block head %}
+<script type="text/javascript" src="{% static 'orders/orders.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<table>
+    <tr>
+        <th> Pizza type </th>
+        <th> # toppings </th>
+        <th> size </th>
+        <th> Price </th>
+    </tr>
+    {% for pizza in pizzas %}
+    <tr>
+        <td> <a href = '#' class = 'pizza' data-pizza = {{ pizza.id}}> {{ pizza.type }} </a></td>
+        <td> {{ pizza.toppings }}</td>
+        <td> {{ pizza.size }}</td>
+        <td> {{ pizza.price }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
