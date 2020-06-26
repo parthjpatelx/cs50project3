@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -75,3 +75,12 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else: 
         return render(request, "orders/register.html")
+
+def cart (request):
+    pizza_id = request.POST["pizza_id"]
+
+    if pizza_id:
+        return JsonResponse({'success': True})
+    else:
+        return JsonResponse({'success': False})
+
