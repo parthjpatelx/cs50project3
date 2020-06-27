@@ -7,6 +7,11 @@ document.addEventListener('DOMContentLoaded', function(){
             const request = new XMLHttpRequest();
             request.open('POST', '/cart');
 
+            // Add a csrf-token to the request headers so that Django accepts the request
+            var csrftoken = Cookies.get("csrftoken");
+            request.setRequestHeader("X-CSRFToken", csrftoken);
+            
+
             request.onload = () => {
 
                 // Extract JSON data from request
@@ -25,9 +30,6 @@ document.addEventListener('DOMContentLoaded', function(){
             pizza_id = true;
             data.append('pizza_id', pizza_id);
 
-            // Add a csrf-token to the request headers so that Django accepts the request
-            var csrftoken = Cookies.get("csrftoken");
-            request.setRequestHeader("X-CSRFToken", csrftoken);
 
   
             // Send request
