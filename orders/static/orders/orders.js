@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function(){
     document.querySelectorAll('.pizza').forEach(link => {
         link.onclick = () => {
-            alert('link has been clicked')
-            pizza_id = link.dataset.pizza
+            alert('link has been clicked');
+            // pizza_id = link.dataset.pizza;
 
             const request = new XMLHttpRequest();
             request.open('POST', '/cart');
@@ -15,19 +15,19 @@ document.addEventListener('DOMContentLoaded', function(){
             request.onload = () => {
 
                 // Extract JSON data from request
-                const data = JSON.parse(request.responseText);
+                // const data = JSON.parse(request.responseText);
   
                 // Update the result div
                 if (data.success) {
                     alert('success');
                 }
-                else {
+                if (data.failure) {
                     alert('error');
                 }
             }
 
             const data = new FormData();
-            pizza_id = true;
+            pizza_id = 'hello';
             data.append('pizza_id', pizza_id);
 
 

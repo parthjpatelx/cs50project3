@@ -76,12 +76,11 @@ def register(request):
     else: 
         return render(request, "orders/register.html")
 
-def cart (request):
-    pizza_id = request.POST["pizza_id"]
-
+def cart(request):
     if request.method == 'POST':
+        pizza_id = request.POST["pizza_id"]
         if pizza_id:
             return JsonResponse({'success': True})
         else:
-            return JsonResponse({'success': False})
+            return JsonResponse({'failure': True})
 
