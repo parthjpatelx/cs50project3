@@ -79,8 +79,9 @@ def register(request):
 def cart (request):
     pizza_id = request.POST["pizza_id"]
 
-    if pizza_id:
-        return JsonResponse({'success': True})
-    else:
-        return JsonResponse({'success': False})
+    if request.method == 'POST':
+        if pizza_id:
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False})
 

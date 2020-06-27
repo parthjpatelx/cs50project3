@@ -1,8 +1,39 @@
 document.addEventListener('DOMContentLoaded', function(){
-    alert('hello');
     document.querySelectorAll('.pizza').forEach(link => {
         link.onclick = () => {
-            alert('hello');
+            alert('link has been clicked')
+            pizza_id = link.dataset.pizza
+
+            const request = new XMLHttpRequest();
+            request.open('POST', '/cart');
+
+            request.onload = () => {
+
+                // Extract JSON data from request
+                const data = JSON.parse(request.responseText);
+  
+                // Update the result div
+                if (data.success) {
+                    alert('success');
+                }
+                else {
+                    alert('error');
+                }
+            }
+
+            const data = new FormData();
+            pizza_id = true;
+            data.append('pizza_id', pizza_id);
+
+            // Add a csrf-token to the request headers so that Django accepts the request
+            var csrftoken = Cookies.get("csrftoken");
+            request.setRequestHeader("X-CSRFToken", csrftoken);
+
+  
+            // Send request
+            request.send(data);
+            return false;            
+    
         }
     }
     ); 
