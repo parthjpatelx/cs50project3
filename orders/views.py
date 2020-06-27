@@ -79,8 +79,16 @@ def register(request):
 def cart(request):
     if request.method == 'POST':
         pizza_id = request.POST["pizza_id"]
+        # if pizza_id:
+        #     return JsonResponse({'success': True})
+        # else:
+        #     return JsonResponse({'failure': True})
+        # return JsonResponse({'success' : True})
+        # return HttpResponse({'success' : True})
         if pizza_id:
-            return JsonResponse({'success': True})
+            return HttpResponse('pizza ID is valid')
         else:
-            return JsonResponse({'failure': True})
+            return HttpResponse('pizza ID is not valid')
+    else:
+        return HttpResponse('request method not supported')
 

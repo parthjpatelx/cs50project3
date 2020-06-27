@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function(){
     document.querySelectorAll('.pizza').forEach(link => {
         link.onclick = () => {
             alert('link has been clicked');
-            // pizza_id = link.dataset.pizza;
+            pizza_id = link.dataset.pizza;
 
             const request = new XMLHttpRequest();
             request.open('POST', '/cart');
@@ -13,21 +13,13 @@ document.addEventListener('DOMContentLoaded', function(){
             
 
             request.onload = () => {
-
                 // Extract JSON data from request
                 // const data = JSON.parse(request.responseText);
-  
-                // Update the result div
-                if (data.success) {
-                    alert('success');
-                }
-                if (data.failure) {
-                    alert('error');
-                }
+                document.querySelector('#response').innerHTML = request.responseText;
             }
 
             const data = new FormData();
-            pizza_id = 'hello';
+            // pizza_id = 'hello';
             data.append('pizza_id', pizza_id);
 
 
