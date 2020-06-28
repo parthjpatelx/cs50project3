@@ -94,6 +94,13 @@ class Salad(models.Model):
     def __str__(self):
         return f'Name: {self.name}, Price: {self.price}'
 
+
+class OrderStatus(models.Model):
+    status = models.CharField(max_length=64)
+
+    def __str__(self):
+        return f'{self.status}'
+
 class Cart(models.Model):
     pizza= models.ManyToManyField(Pizza, blank=True)
     subs= models.ManyToManyField(Sub, blank=True)
@@ -101,3 +108,4 @@ class Cart(models.Model):
     salads= models.ManyToManyField(Salad, blank=True)
     platters= models.ManyToManyField(Platter, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, default=999)
+    status = models.ForeignKey(OrderStatus, on_delete=models.CASCADE, default=1)
