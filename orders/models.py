@@ -1,4 +1,6 @@
 from django.db import models
+from django.conf import settings
+
 
 #Added
 class Pizza_style(models.Model):
@@ -98,3 +100,4 @@ class Cart(models.Model):
     pasta= models.ManyToManyField(Pasta, blank=True)
     salads= models.ManyToManyField(Salad, blank=True)
     platters= models.ManyToManyField(Platter, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, default=999)
