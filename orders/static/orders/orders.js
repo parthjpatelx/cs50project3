@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function(){
             pizza_id = link.dataset.pizza;
 
             const request = new XMLHttpRequest();
-            request.open('POST', '/cart');
+            request.open('POST', '/cart/add');
 
             // Add a csrf-token to the request headers so that Django accepts the request
             var csrftoken = Cookies.get("csrftoken");
