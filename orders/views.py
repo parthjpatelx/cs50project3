@@ -5,7 +5,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
-from orders.models import Pizza_style, Pizza, Size, Cart
+from orders.models import Pizza_style, Pizza, Size, Cart, OrderStatus
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -76,23 +77,29 @@ def register(request):
     else: 
         return render(request, "orders/register.html")
 
+
 def add_item(request):
     if request.method == 'POST':
-        pizza_id = request.POST["pizza_id"]
-        pizza = Pizza.objects.get(pk=pizza_id)
 
-        user_id
+        if not request.user.is_authenticated:
+            return render(request, "orders/error.html", {"message": "You must be logged in to do this"})
 
-        #get corresponding user class from user id 
-        current_user = 
-
-        current_cart = Cart.objects.get(user=)
-
+        pizza = Pizza.objects.get(pk=request.POST["pizza_id"])
+        current_user = request.user
+        pending = OrderStatus.objects.get(status='pending')
         
+        try:
+            current_cart = Cart.objects.get(user=current_user, status=pending)
+        except:
+            current_cart = Cart(user=current_user, status=pending)
+            current_cart.save()
+        
+        current_cart.pizza.add(pizza)
+        current_cart.save()
+        
+        pizzas = current_cart.pizza
 
-
-
-        return render(request, "cart.html", {'pizza_selected' : pizza})
+        return render(request, "cart.html", {'pizzas' : pizzas})
             
     else:
         return render(request, "orders/error.html", {"message": "This path only accepts POST requests"})
