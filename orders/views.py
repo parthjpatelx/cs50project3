@@ -92,11 +92,12 @@ def add_item(request):
     
         # cart.pizza.add(pizza_id)
         # cart.save()
-        return render(request, "orders/login.html")
+
+        return render(request, "cart.html", {'pizza_id' : pizza_id})
     
         # return HttpResponse(request, 'item added to cart')
         
     else:
-        return render(request, "orders/register.html")
+        return render(request, "orders/error.html", {"message": "This path only accepts POST requests"})
 
 
