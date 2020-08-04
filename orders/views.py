@@ -79,24 +79,10 @@ def register(request):
 def add_item(request):
     if request.method == 'POST':
         pizza_id = request.POST["pizza_id"]
+        pizza = Pizza.objects.get(pk=pizza_id)
 
-        # if not pizza_id:
-        #     return HttpResponse('pizza ID is not valid')
-    
-        # user = User.objects.get(id=1)
-
-        # if Cart.objects.get(user=user, status=1).exists():
-        #     cart = Cart.objects.get(user=user, status=1)
-        # else:
-        #     cart = Cart(user=user)
-    
-        # cart.pizza.add(pizza_id)
-        # cart.save()
-
-        return render(request, "cart.html", {'pizza_id' : pizza_id})
-    
-        # return HttpResponse(request, 'item added to cart')
-        
+        return render(request, "cart.html", {'pizza_selected' : pizza})
+            
     else:
         return render(request, "orders/error.html", {"message": "This path only accepts POST requests"})
 
