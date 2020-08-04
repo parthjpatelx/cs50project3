@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
-from orders.models import Pizza_style, Pizza, Size
+from orders.models import Pizza_style, Pizza, Size, Cart
 
 
 def index(request):
@@ -79,10 +79,24 @@ def register(request):
 def add_item(request):
     if request.method == 'POST':
         pizza_id = request.POST["pizza_id"]
-        if pizza_id:
-            return HttpResponse(pizza_id)
-        else:
-            return HttpResponse('pizza ID is not valid')
+
+        # if not pizza_id:
+        #     return HttpResponse('pizza ID is not valid')
+    
+        # user = User.objects.get(id=1)
+
+        # if Cart.objects.get(user=user, status=1).exists():
+        #     cart = Cart.objects.get(user=user, status=1)
+        # else:
+        #     cart = Cart(user=user)
+    
+        # cart.pizza.add(pizza_id)
+        # cart.save()
+        return render(request, "orders/login.html")
+    
+        # return HttpResponse(request, 'item added to cart')
+        
     else:
-        return HttpResponse('request method not supported')
+        return render(request, "orders/register.html")
+
 
